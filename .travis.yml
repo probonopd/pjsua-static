@@ -21,6 +21,7 @@ script:
   - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
   - tar cfvj ../pjsip-apps.tar.bz2 pjsip-apps/bin/
   - cd ..
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
   - bash upload.sh ./pjsip-apps.tar.bz2
   
 branches:
