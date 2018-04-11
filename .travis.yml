@@ -19,7 +19,7 @@ script:
   - wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
   - tar xf pjproject-*.tar.bz2
   - cd pjproject-*/
-  - CC=arm-linux-gnueabihf-gcc  ./configure --host=arm-linux-gnueabihf --prefix=/usr
+  - CC=arm-linux-gnueabihf-gcc ./configure --enable-static --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --host=arm-linux-gnueabihf --prefix=/usr
   - make dep
   - make
   - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
