@@ -12,7 +12,7 @@ script:
   - make
   - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
-  - VERSION=1.12
+  - VERSION=1.16
 #  - VERSION=$(wget -q "https://trac.pjsip.org/repos/browser/pjproject/tags?order=date&desc=1" -O - | grep "View Directory" | cut -d ">" -f 2 | cut -d "<" -f 1 | head -n 1)
   - wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
   - tar xf pjproject-*.tar.bz2
