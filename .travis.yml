@@ -12,18 +12,19 @@ script:
   - make
   - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
-#  - wget http://www.pjsip.org/release/1.12/pjproject-1.12.tar.bz2
-  - wget http://www.pjsip.org/release/2.7.2/pjproject-2.7.2.tar.bz2
+  - VERSION=1.12
+#  - VERSION=$(wget -q "https://trac.pjsip.org/repos/browser/pjproject/tags?order=date&desc=1" -O - | grep "View Directory" | cut -d ">" -f 2 | cut -d "<" -f 1 | head -n 1)
+  - wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
   - tar xf pjproject-*.tar.bz2
   - cd pjproject-*/
   - CC=arm-linux-gnueabihf-gcc  ./configure --host=arm-linux-gnueabihf --prefix=/usr
   - make dep
   - make
   - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
-  - tar cfvj ../pjsip-apps.tar.bz2 pjsip-apps/bin/
+  - tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
   - cd ..
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - bash upload.sh ./pjsip-apps.tar.bz2
+  - bash upload.sh ./pjsip-apps-*.tar.bz2
   
 branches:
   except:
