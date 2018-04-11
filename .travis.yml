@@ -11,7 +11,7 @@ script:
   - wget https://ftp.osuosl.org/pub/blfs/conglomeration/alsa-lib/alsa-lib-1.0.25.tar.bz2
   - tar xf alsa-lib-1.0.25.tar.bz2
   - cd alsa-lib-1.0.25
-  - CC=arm-linux-gnueabihf-gcc ./configure --prefix=/ --host=arm-linux-gnueabihf
+  - ./configure --prefix=/ --host=arm-linux-gnueabihf
   - make
   - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
@@ -20,7 +20,7 @@ script:
   - wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
   - tar xf pjproject-*.tar.bz2
   - cd pjproject-*/
-  - CC=arm-linux-gnueabihf-gcc ./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --host=arm-linux-gnueabihf --prefix=/usr
+  - ./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --host=arm-linux-gnueabihf --prefix=/usr
   - make dep
   - make
   - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
