@@ -13,3 +13,12 @@ tar xf pjsip-apps*.tar.bz2
 ./pjsip-apps/bin/pjsua-arm-unknown-linux-gnueabihf --capture-dev=1 --playback-dev=1 sip:thetestcall@sip.linphone.org
 # 0 is built-in usually
 ```
+
+To check broadband codec:
+
+```
+# Polycom HD demo
+./pjsip-apps/bin/pjsua-arm-unknown-linux-gnueabihf --capture-dev=1 --playback-dev=1 sip:wbdemo@conf.zipdx.com
+# Send DTMF #
+# Send DTMF 5
+```
