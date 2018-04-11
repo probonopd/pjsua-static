@@ -13,7 +13,7 @@ script:
   - cd Python-*/
   - echo ac_cv_file__dev_ptmx=no > ./config.site
   - echo ac_cv_file__dev_ptc=no >> ./config.site
-  - CONFIG_SITE=config.site ./configure --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf
+  - CONFIG_SITE=config.site CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ AR=arm-linux-gnueabihf-ar RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --enable-shared --host=arm-linux --build=x86_64-linux-gnu --disable-ipv6
   - make -j4
   - sudo make install
   - cd ..
