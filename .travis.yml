@@ -12,9 +12,10 @@ script:
   - make
   - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
-  - wget http://www.pjsip.org/release/1.12/pjproject-1.12.tar.bz2
-  - tar xf pjproject-1.12.tar.bz2
-  - cd pjproject-1.12
+#  - wget http://www.pjsip.org/release/1.12/pjproject-1.12.tar.bz2
+  - wget http://www.pjsip.org/release/2.7.2/pjproject-2.7.2.tar.bz2
+  - tar xf pjproject-*.tar.bz2
+  - cd pjproject-*/
   - CC=arm-linux-gnueabihf-gcc  ./configure --host=arm-linux-gnueabihf --prefix=/usr
   - make dep
   - make
