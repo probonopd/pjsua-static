@@ -11,8 +11,8 @@ script:
   - wget https://ftp.osuosl.org/pub/blfs/conglomeration/alsa-lib/alsa-lib-1.0.25.tar.bz2
   - tar xf alsa-lib-1.0.25.tar.bz2
   - cd alsa-lib-1.0.25
-  - ./configure --prefix=/ --host=arm-linux-gnueabihf
-  - make
+  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ AR=arm-linux-gnueabihf-ar RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --prefix=/ --host=arm-linux-gnueabihf
+  - make -j4
   - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
   - wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz
@@ -29,9 +29,9 @@ script:
   - wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
   - tar xf pjproject-*.tar.bz2
   - cd pjproject-*/
-  - ./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --host=arm-linux-gnueabihf --prefix=/usr
+  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ AR=arm-linux-gnueabihf-ar RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --host=arm-linux-gnueabihf --prefix=/usr
   - make dep
-  - make
+  - make -j4
   - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
   - tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
   - cd ..
