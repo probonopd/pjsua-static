@@ -9,7 +9,7 @@ script:
 # - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7-dev_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
 # - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
   - wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz
-  - tar xz Python-2.7.12.tar.xz
+  - tar xf Python-2.7.12.tar.xz
   - cd Python-*/
   - echo ac_cv_file__dev_ptmx=no > ./config.site
   - echo ac_cv_file__dev_ptc=no >> ./config.site
