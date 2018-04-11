@@ -8,7 +8,7 @@ On a 32-bit ARM system where `aplay -l` and `arecord -l` are working, do the fol
 
 ```
 rm -rf pjsip-apps* || true
-wget https://github.com/probonopd/pjsua-static/releases/download/continuous/pjsip-apps-2.1.tar.bz2
+wget https://github.com/probonopd/pjsua-static/releases/download/continuous/pjsip-apps-2.4.5.tar.bz2
 tar xf pjsip-apps*.tar.bz2 
 ./pjsip-apps/bin/pjsua-arm-unknown-linux-gnueabihf --capture-dev=1 --playback-dev=1 sip:thetestcall@sip.linphone.org
 # 0 is built-in usually
