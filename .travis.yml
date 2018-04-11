@@ -5,7 +5,7 @@ dist: trusty
 
 script:
   - sudo apt-get -y install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
-  - wget ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.0.25.tar.bz2
+  - wget https://ftp.osuosl.org/pub/blfs/conglomeration/alsa-lib/alsa-lib-1.0.25.tar.bz2
   - tar xf alsa-lib-1.0.25.tar.bz2
   - cd alsa-lib-1.0.25
   - CC=arm-linux-gnueabihf-gcc ./configure --prefix=/ --host=arm-linux-gnueabihf
