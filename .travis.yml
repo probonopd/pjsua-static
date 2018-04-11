@@ -1,0 +1,29 @@
+language: cpp
+compiler: gcc
+sudo: require
+dist: trusty
+
+script:
+  - sudo apt-get -y install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+  - wget ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.0.25.tar.bz2
+  - tar xf alsa-lib-1.0.25.tar.bz2
+  - cd alsa-lib-1.0.25
+  - CC=arm-linux-gnueabihf-gcc ./configure --prefix=/ --host=arm-linux-gnueabihf
+  - make
+  - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
+  - cd ..
+  - wget http://www.pjsip.org/release/1.12/pjproject-1.12.tar.bz2
+  - tar xf pjproject-1.12.tar.bz2
+  - cd pjproject-1.12
+  - CC=arm-linux-gnueabihf-gcc  ./configure --host=arm-linux-gnueabihf --prefix=/usr
+  - make dep
+  - make
+  - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
+  - tar cfvj ../pjsip-apps.tar.bz2 pjsip-apps/bin/
+  - cd ..
+  - bash upload.sh ./pjsip-apps.tar.bz2
+  
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)/
