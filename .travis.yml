@@ -4,15 +4,24 @@ sudo: require
 dist: trusty
 
 script:
-# - https://stackoverflow.com/questions/33512541/
-  - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7-dev_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
-  - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
   - sudo apt-get -y install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+# - https://stackoverflow.com/questions/33512541/
+# - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7-dev_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
+# - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
+  - wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz
+  - tar xz Python-2.7.12.tar.xz
+  - cd Python-*/
+  - echo ac_cv_file__dev_ptmx=no > ./config.site
+  - echo ac_cv_file__dev_ptc=no >> ./config.site
+  - CONFIG_SITE=config.site ./configure --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf
+  - make -j4
+  - sudo make install
+  - cd ..
   - wget https://ftp.osuosl.org/pub/blfs/conglomeration/alsa-lib/alsa-lib-1.0.25.tar.bz2
   - tar xf alsa-lib-1.0.25.tar.bz2
   - cd alsa-lib-1.0.25
   - ./configure --prefix=/ --host=arm-linux-gnueabihf
-  - make
+  - make -j4
   - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
   - VERSION=2.1
@@ -22,7 +31,7 @@ script:
   - cd pjproject-*/
   - ./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --host=arm-linux-gnueabihf --prefix=/usr
   - make dep
-  - make
+  - make -j4
   - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
   - tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
   - cd ..
