@@ -12,11 +12,11 @@ env:
     - RANLIB=arm-linux-gnueabihf-ranlib
     - READELF=arm-linux-gnueabihf-readelf
     - STRIP=arm-linux-gnueabihf-strip
-    - CFLAGS="-I${CROSS_PATH}/usr/include -I${HOME}/Python-2.7.12/"
+    - CFLAGS="-I${CROSS_PATH}/usr/include -I${TRAVIS_BUILD_DIR}/Python-2.7.12/"
     - LDFLAGS="-L${CROSS_PATH}/usr/lib"
-    - CPPFLAGS="-I${CROSS_PATH}/usr/include -I${HOME}/Python-2.7.12/"
+    - CPPFLAGS="-I${CROSS_PATH}/usr/include -I${TRAVIS_BUILD_DIR}/Python-2.7.12/"
     - LDSHARED=arm-linux-gnueabihf-gcc
-    - LD_LIBRARY_PATH=${HOME}/Python-2.7.12/build/lib.linux2-arm-2.7/:$LD_LIBRARY_PATH ## Makes no diference?
+    - LD_LIBRARY_PATH=${TRAVIS_BUILD_DIR}/Python-2.7.12/build/lib.linux2-arm-2.7/:$LD_LIBRARY_PATH ## Makes no diference?
 
 script:
   - sudo apt-get -y install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf build-essential python-dev
