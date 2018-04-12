@@ -18,7 +18,7 @@ script:
   - mv Parser/pgen Parser/hostpgen
   - make distclean
   - wget https://gist.githubusercontent.com/bmount/6929380/raw/8ef8e2701e7d5b1b22c5687e93d22f6ef9ca7ec6/Python-2.7.3-xcompile.patch
-  - patch -p1 < ../Python-2.7.3-xcompile.patch
+  - patch -p1 < ./Python-2.7.3-xcompile.patch
   - echo ac_cv_file__dev_ptmx=no > ./config.site
   - echo ac_cv_file__dev_ptc=no >> ./config.site
   - CONFIG_SITE=config.site CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host=arm-linux-gnueabihf --build=x86_64-linux-gnu --prefix=/usr/arm-linux-gnueabihf/ --enable-shared --host=arm-linux --build=x86_64-linux-gnu --disable-ipv6
