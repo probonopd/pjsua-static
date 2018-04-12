@@ -8,14 +8,8 @@ script:
 # - https://stackoverflow.com/questions/33512541/
 # - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7-dev_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
 # - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
-  - wget https://ftp.osuosl.org/pub/blfs/conglomeration/alsa-lib/alsa-lib-1.0.25.tar.bz2
-  - tar xf alsa-lib-1.0.25.tar.bz2
-  - cd alsa-lib-1.0.25
-  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --prefix=/ --host=arm-linux-gnueabihf --build=x86_64-linux-gnu
-  - make -j4
-  - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
-  - cd ..
   - wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz
+# - https://gist.github.com/bmount/6929380
   - tar xf Python-2.7.12.tar.xz
   - cd Python-*/
   - ./configure
@@ -23,11 +17,20 @@ script:
   - mv python hostpython
   - mv Parser/pgen Parser/hostpgen
   - make distclean
+  - wget https://gist.githubusercontent.com/bmount/6929380/raw/8ef8e2701e7d5b1b22c5687e93d22f6ef9ca7ec6/Python-2.7.3-xcompile.patch
+  - patch -p1 < ../Python-2.7.3-xcompile.patch
   - echo ac_cv_file__dev_ptmx=no > ./config.site
   - echo ac_cv_file__dev_ptc=no >> ./config.site
   - CONFIG_SITE=config.site CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host=arm-linux-gnueabihf --build=x86_64-linux-gnu --prefix=/usr/arm-linux-gnueabihf/ --enable-shared --host=arm-linux --build=x86_64-linux-gnu --disable-ipv6
   - make -j4 HOSTPYTHON=./hostpython HOSTPGEN=./Parser/hostpgen BLDSHARED="arm-linux-gnueabihf-gcc -shared" 
   - sudo make install HOSTPYTHON=./hostpython BLDSHARED="arm-linux-gnueabihf-gcc -shared" CROSS_COMPILE=arm-linux-gnueabihf- CROSS_COMPILE_TARGET=yes
+  - cd ..
+  - wget https://ftp.osuosl.org/pub/blfs/conglomeration/alsa-lib/alsa-lib-1.0.25.tar.bz2
+  - tar xf alsa-lib-1.0.25.tar.bz2
+  - cd alsa-lib-1.0.25
+  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --prefix=/ --host=arm-linux-gnueabihf --build=x86_64-linux-gnu
+  - make -j4
+  - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
   - wget https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
   - tar xf opus-*.tar.gz
