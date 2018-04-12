@@ -8,7 +8,7 @@ env:
     - CROSS_PATH=/usr/arm-linux-gnueabihf
     - CC=arm-linux-gnueabihf-gcc
     - CXX=arm-linux-gnueabihf-g++
-    - AR=arm-linux-gnueabihf-ar
+#   - AR=arm-linux-gnueabihf-ar
     - RANLIB=arm-linux-gnueabihf-ranlib
     - READELF=arm-linux-gnueabihf-readelf
     - STRIP=arm-linux-gnueabihf-strip
