@@ -27,7 +27,7 @@ script:
   - wget https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
   - tar xf opus-*.tar.gz
   - cd opus-*/
-  - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L$ --host arm-linux-gnueabihf {CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./autogen.sh
+# - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L$ --host arm-linux-gnueabihf {CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./autogen.sh
   - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host arm-linux-gnueabihf
   - make -j4
   - sudo make install
