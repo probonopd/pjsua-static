@@ -24,6 +24,14 @@ script:
   - make -j4
   - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
+  - wget https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
+  - tar xf opus-*.tar.gz
+  - cd opus-*/
+  - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L$ --host arm-linux-gnueabihf {CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./autogen.sh
+  - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host arm-linux-gnueabihf
+  - make -j4
+  - sudo make install
+  - cd ..
 # - VERSION=2.1
   - VERSION=$(wget -q "https://trac.pjsip.org/repos/browser/pjproject/tags?order=date&desc=1" -O - | grep "View Directory" | cut -d ">" -f 2 | cut -d "<" -f 1 | head -n 1)
   - wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
