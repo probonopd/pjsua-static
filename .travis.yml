@@ -11,7 +11,7 @@ script:
   - wget https://ftp.osuosl.org/pub/blfs/conglomeration/alsa-lib/alsa-lib-1.0.25.tar.bz2
   - tar xf alsa-lib-1.0.25.tar.bz2
   - cd alsa-lib-1.0.25
-  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --prefix=/ --host=arm-linux-gnueabihf
+  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --prefix=/ --host=arm-linux-gnueabihf --build=x86_64-linux-gnu
   - make -j4
   - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
   - cd ..
@@ -25,7 +25,7 @@ script:
   - make distclean
   - echo ac_cv_file__dev_ptmx=no > ./config.site
   - echo ac_cv_file__dev_ptc=no >> ./config.site
-  - CONFIG_SITE=config.site CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --prefix=/usr/arm-linux-gnueabihf/ --enable-shared --host=arm-linux --build=x86_64-linux-gnu --disable-ipv6
+  - CONFIG_SITE=config.site CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host=arm-linux-gnueabihf --build=x86_64-linux-gnu --prefix=/usr/arm-linux-gnueabihf/ --enable-shared --host=arm-linux --build=x86_64-linux-gnu --disable-ipv6
   - make -j4 HOSTPYTHON=./hostpython HOSTPGEN=./Parser/hostpgen BLDSHARED="arm-linux-gnueabihf-gcc -shared" 
   - sudo make install HOSTPYTHON=./hostpython BLDSHARED="arm-linux-gnueabihf-gcc -shared" CROSS_COMPILE=arm-linux-gnueabihf- CROSS_COMPILE_TARGET=yes
   - cd ..
@@ -33,7 +33,7 @@ script:
   - tar xf opus-*.tar.gz
   - cd opus-*/
 # - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L$ --host arm-linux-gnueabihf {CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./autogen.sh
-  - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host arm-linux-gnueabihf
+  - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host=arm-linux-gnueabihf --build=x86_64-linux-gnu
   - make -j4
   - sudo make install
   - cd ..
@@ -42,7 +42,7 @@ script:
   - wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
   - tar xf pjproject-*.tar.bz2
   - cd pjproject-*/
-  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --host=arm-linux-gnueabihf --prefix=/usr
+  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --host=arm-linux-gnueabihf --build=x86_64-linux-gnu --prefix=/usr
   - make dep
   - make -j4
   - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
