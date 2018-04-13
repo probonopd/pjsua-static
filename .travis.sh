@@ -81,6 +81,7 @@ make dep
 make -j4
 sudo make install # needed for pjsip-apps/src/swig/python below? 
 find pjsip-apps/bin -type f -executable -exec strip {} \;
+ldd pjsip-apps/bin/pjsua-x86_64-unknown-linux-gnu
 tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
 
 # pjsip Python bindings
