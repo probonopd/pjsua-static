@@ -82,4 +82,8 @@ tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
 cd pjsip-apps/src/python
 make
 
+file build/lib.*/_pjsua.so
+ldd file build/lib.*/_pjsua.so
+ls -lh file build/lib.*/_pjsua.so
+
 cd ..
