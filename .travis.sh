@@ -63,7 +63,7 @@ fi
 echo "Running tests"
 echo "Environment: $(uname -a)"
 
-sudo apt install libasound2-dev libopus-dev python-dev
+sudo apt -y install libasound2-dev libopus-dev python-dev
 
 # pjsip apps
 
