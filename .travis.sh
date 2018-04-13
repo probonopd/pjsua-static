@@ -2,7 +2,7 @@
 # Based on https://github.com/lwhsu/travis-qemu/blob/master/.travis-ci.sh
 
 CHROOT_DIR=/tmp/arm-chroot
-MIRROR=http://us.archive.ubuntu.com/ubuntu
+MIRROR=http://apt.armbian.com
 VERSION=xenial
 CHROOT_ARCH=armhf
 
