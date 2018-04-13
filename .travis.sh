@@ -99,8 +99,7 @@ cd -
 # PJSUA2 Python module
 
 cd pjsip-apps/src/swig/python
-make -j4
-sudo make install
+sudo python setup.py install --install-layout=deb --root=$(readlink -f .)/dist
 find . 
 
 cd - 
