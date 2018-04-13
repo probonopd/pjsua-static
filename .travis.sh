@@ -64,7 +64,7 @@ fi
 echo "Running tests"
 echo "Environment: $(uname -a)"
 
-sudo apt -y install libasound2-dev libopus-dev python-dev
+sudo apt -y install libasound2-dev libopus-dev python-dev swig3.0
 
 # Use static libopus
 
