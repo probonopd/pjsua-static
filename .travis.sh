@@ -79,6 +79,7 @@ cd pjproject-*/
 ./configure CFLAGS='-O2 -fPIC' --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --prefix=/usr
 make dep
 make -j4
+sudo make install # needed for pjsip-apps/src/swig/python below? 
 find pjsip-apps/bin -type f -executable -exec strip {} \;
 tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
 
