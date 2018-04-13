@@ -2,8 +2,8 @@
 # Based on https://github.com/lwhsu/travis-qemu/blob/master/.travis-ci.sh
 
 CHROOT_DIR=/tmp/arm-chroot
-MIRROR=http://apt.armbian.com
-VERSION=xenial
+MIRROR=http://ftp.us.debian.org/debian
+VERSION=jessie
 CHROOT_ARCH=armhf
 
 # Debian package dependencies for the host
@@ -63,7 +63,9 @@ fi
 echo "Running tests"
 echo "Environment: $(uname -a)"
 
-sudo apt install libasound2-dev
+sudo apt install libasound2-dev libopus-dev python-dev
+
+# pjsip apps
 
 VERSION=$(wget -q "https://trac.pjsip.org/repos/browser/pjproject/tags?order=date&desc=1" -O - | grep "View Directory" | cut -d ">" -f 2 | cut -d "<" -f 1 | head -n 1)
 wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
@@ -74,4 +76,10 @@ make dep
 make -j4
 find pjsip-apps/bin -type f -executable -exec strip {} \;
 tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
+
+# pjsip Python bindings
+
+cd pjsip-apps/src/python
+make
+
 cd ..
