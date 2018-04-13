@@ -4,7 +4,8 @@ sudo: require
 dist: trusty
 
 script:
-  - sudo apt-get -y install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf build-essential python-dev
+  - sudo apt-get -y install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf build-essential # python-dev
+  - sudo apt-get -y remove python
 # - https://stackoverflow.com/questions/33512541/
 # - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7-dev_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
 # - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
@@ -13,10 +14,13 @@ script:
 # - https://gist.github.com/bmount/6929380
   - tar xf Python-2.7.12.tar.xz
   - cd Python-*/
-  - ./configure
-  - make python Parser/pgen
-  - mv python hostpython
-  - mv Parser/pgen Parser/hostpgen
+# - ./configure
+# - make python Parser/pgen
+# - mv python hostpython
+# - mv Parser/pgen Parser/hostpgen
+  - ./configure PREFIX=/usr
+  - make -j4
+  - sudo make install
   - make distclean
   - echo ac_cv_file__dev_ptmx=no > ./config.site
   - echo ac_cv_file__dev_ptc=no >> ./config.site
