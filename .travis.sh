@@ -65,6 +65,10 @@ echo "Environment: $(uname -a)"
 
 sudo apt -y install libasound2-dev libopus-dev python-dev
 
+# Use static libopus
+
+sudo find /usr/lib -name libopus.so -delete
+
 # pjsip apps
 
 VERSION=$(wget -q "https://trac.pjsip.org/repos/browser/pjproject/tags?order=date&desc=1" -O - | grep "View Directory" | cut -d ">" -f 2 | cut -d "<" -f 1 | head -n 1)
@@ -85,5 +89,7 @@ make
 file build/lib.*/_pjsua.so
 ldd build/lib.*/_pjsua.so
 ls -lh build/lib.*/_pjsua.so
+
+find .
 
 cd ..
