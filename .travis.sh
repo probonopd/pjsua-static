@@ -97,7 +97,7 @@ cd -
 
 # PJSUA2 Python module
 
-cd pjsip-apps/src/swig
+cd pjsip-apps/src/swig/python
 make -j4
 sudo make install
 find . 
