@@ -2,18 +2,15 @@
 # Based on https://github.com/lwhsu/travis-qemu/blob/master/.travis-ci.sh
 
 CHROOT_DIR=/tmp/arm-chroot
-MIRROR=http://archive.raspbian.org/raspbian
-VERSION=wheezy
+MIRROR=http://us.archive.ubuntu.com/ubuntu
+VERSION=xenial
 CHROOT_ARCH=armhf
 
 # Debian package dependencies for the host
 HOST_DEPENDENCIES="debootstrap qemu-user-static binfmt-support sbuild"
 
 # Debian package dependencies for the chrooted environment
-GUEST_DEPENDENCIES="build-essential git m4 sudo python"
-
-# Command used to run the tests
-TEST_COMMAND="make test"
+GUEST_DEPENDENCIES="build-essential git m4 sudo python-dev"
 
 function setup_arm_chroot {
     # Host dependencies
@@ -66,4 +63,15 @@ fi
 echo "Running tests"
 echo "Environment: $(uname -a)"
 
-${TEST_COMMAND}
+sudo apt install libasound2-dev
+
+VERSION=$(wget -q "https://trac.pjsip.org/repos/browser/pjproject/tags?order=date&desc=1" -O - | grep "View Directory" | cut -d ">" -f 2 | cut -d "<" -f 1 | head -n 1)
+wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
+tar xf pjproject-*.tar.bz2
+cd pjproject-*/
+./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --prefix=/usr
+make dep
+make -j4
+find pjsip-apps/bin -type f -executable -exec strip {} \;
+tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
+cd ..
