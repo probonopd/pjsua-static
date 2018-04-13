@@ -83,7 +83,7 @@ cd pjsip-apps/src/python
 make
 
 file build/lib.*/_pjsua.so
-ldd file build/lib.*/_pjsua.so
-ls -lh file build/lib.*/_pjsua.so
+ldd build/lib.*/_pjsua.so
+ls -lh build/lib.*/_pjsua.so
 
 cd ..
