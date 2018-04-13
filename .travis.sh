@@ -64,7 +64,7 @@ fi
 echo "Running tests"
 echo "Environment: $(uname -a)"
 
-sudo apt -y install libasound2-dev libopus-dev python-dev swig3.0
+sudo apt -y install libasound2-dev libopus-dev python-dev swig3.0 default-jdk
 sudo ln -s /usr/bin/swig3.0 /usr/bin/swig
 
 # Use static libopus
@@ -100,8 +100,9 @@ cd -
 
 # PJSUA2 Python module
 
-cd pjsip-apps/src/swig/python
-sudo python setup.py install --install-layout=deb --root=$(readlink -f .)/dist
+cd pjsip-apps/src/swig/
+make -j4
+sudo make install
 find . 
 
 cd - 
