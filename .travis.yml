@@ -1,61 +1,12 @@
-language: cpp
-compiler: gcc
-sudo: require
-dist: trusty
+language: erlang
+sudo: required
+
+env:
+  - ARCH=x64
+  - ARCH=arm
 
 script:
-  - sudo apt-get -y install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf build-essential # python-dev
-  - sudo apt-get -y remove python
-# - https://stackoverflow.com/questions/33512541/
-# - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7-dev_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
-# - cd / ; sudo wget -c "https://launchpad.net/ubuntu/+source/python2.7/2.7.6-8/+build/5838314/+files/libpython2.7_2.7.6-8_armhf.deb" ; sudo dpkg -x libpython2.7-dev_*_armhf.deb . ; cd -
-  - wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz
-  - sudo rm -rf /usr/lib/python* # https://bytes.com/topic/python/answers/691250-python-dies-make-install
-# - https://gist.github.com/bmount/6929380
-  - tar xf Python-2.7.12.tar.xz
-  - cd Python-*/
-# - ./configure
-# - make python Parser/pgen
-# - mv python hostpython
-# - mv Parser/pgen Parser/hostpgen
-  - ./configure PREFIX=/usr
-  - make -j4
-  - sudo make install
-  - make distclean
-  - echo ac_cv_file__dev_ptmx=no > ./config.site
-  - echo ac_cv_file__dev_ptc=no >> ./config.site
-  - CONFIG_SITE=config.site CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host=arm-linux-gnueabihf --build=x86_64-linux-gnu --prefix=/usr/arm-linux-gnueabihf/ --enable-shared --host=arm-linux --build=x86_64-linux-gnu --disable-ipv6
-  - make -j4 HOSTPYTHON=./hostpython HOSTPGEN=./Parser/hostpgen BLDSHARED="arm-linux-gnueabihf-gcc -shared" 
-  - sudo make install HOSTPYTHON=./hostpython BLDSHARED="arm-linux-gnueabihf-gcc -shared" CROSS_COMPILE=arm-linux-gnueabihf- CROSS_COMPILE_TARGET=yes
-  - cd ..
-  - wget https://ftp.osuosl.org/pub/blfs/conglomeration/alsa-lib/alsa-lib-1.0.25.tar.bz2
-  - tar xf alsa-lib-1.0.25.tar.bz2
-  - cd alsa-lib-1.0.25
-  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --prefix=/ --host=arm-linux-gnueabihf --build=x86_64-linux-gnu
-  - make -j4
-  - sudo make install DESTDIR=/usr/arm-linux-gnueabihf/
-  - cd ..
-  - wget https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
-  - tar xf opus-*.tar.gz
-  - cd opus-*/
-# - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L$ --host arm-linux-gnueabihf {CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./autogen.sh
-  - CROSS=PATH=/usr/arm-linux-gnueabihf/ CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf CFLAGS="-I${CROSS_PATH}/usr/include" LDFLAGS="-L${CROSS_PATH}/usr/lib" CPPFLAGS="-I${CROSS_PATH}/usr/include" ./configure --host=arm-linux-gnueabihf --build=x86_64-linux-gnu
-  - make -j4
-  - sudo make install
-  - cd ..
-# - VERSION=2.1
-  - VERSION=$(wget -q "https://trac.pjsip.org/repos/browser/pjproject/tags?order=date&desc=1" -O - | grep "View Directory" | cut -d ">" -f 2 | cut -d "<" -f 1 | head -n 1)
-  - wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
-  - tar xf pjproject-*.tar.bz2
-  - cd pjproject-*/
-  - CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ RANLIB=arm-linux-gnueabihf-ranlib READELF=arm-linux-gnueabihf-readelf ./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --host=arm-linux-gnueabihf --build=x86_64-linux-gnu --prefix=/usr
-  - make dep
-  - make -j4
-  - find pjsip-apps/bin -type f -executable -exec arm-linux-gnueabihf-strip {} \;
-  - tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
-  - cd ..
-  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - bash upload.sh ./pjsip-apps-*.tar.bz2
+  - bash -ex .travis.sh
   
 branches:
   except:
