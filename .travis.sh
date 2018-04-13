@@ -68,7 +68,7 @@ sudo apt -y install libasound2-dev libopus-dev python-dev
 
 # Use static libopus
 
-sudo find /usr/lib -name libopus.so -delete
+# sudo find /usr/lib -name libopus.so -delete
 
 # pjsip apps
 
@@ -92,5 +92,16 @@ ldd build/lib.*/_pjsua.so
 ls -lh build/lib.*/_pjsua.so
 
 find .
+
+cd -
+
+# PJSUA2 Python module
+
+cd pjsip-apps/src/swig
+make -j4
+sudo make install
+find . 
+
+cd - 
 
 cd ..
