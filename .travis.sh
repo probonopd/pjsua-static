@@ -71,7 +71,7 @@ VERSION=$(wget -q "https://trac.pjsip.org/repos/browser/pjproject/tags?order=dat
 wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
 tar xf pjproject-*.tar.bz2
 cd pjproject-*/
-./configure --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --prefix=/usr
+./configure CFLAGS='-O2 -fPIC' --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --prefix=/usr
 make dep
 make -j4
 find pjsip-apps/bin -type f -executable -exec strip {} \;
