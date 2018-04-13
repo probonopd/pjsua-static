@@ -1,4 +1,4 @@
-language: erlang
+language: none
 sudo: required
 
 env:
