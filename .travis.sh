@@ -61,10 +61,18 @@ else
   fi
 fi
 
+BUILDENV=$(uname -a)
+if [ "${ARCH}" = "arm" ]; then
+  if [[ ! "${BUILDENV}" =~ "arm" ]]; then
+      echo "ARM build but not inside chrooted ARM environment, hence exiting";
+      exit 0;
+  fi
+fi
+
 echo "Running tests"
 echo "Environment: $(uname -a)"
 
-sudo apt -y install libasound2-dev libopus-dev python-dev swig3.0 default-jdk
+sudo apt -y install libasound2-dev libopus-dev python-dev default-jdk swig # swig3.0
 sudo ln -s /usr/bin/swig3.0 /usr/bin/swig
 
 # Use static libopus
@@ -78,11 +86,16 @@ wget http://www.pjsip.org/release/$VERSION/pjproject-$VERSION.tar.bz2
 tar xf pjproject-*.tar.bz2
 cd pjproject-*/
 ./configure CFLAGS='-O2 -fPIC' --enable-static --disable-libwebrtc --disable-video --disable-libyuv --disable-sdl --disable-ffmpeg --disable-v4l2 --disable-openh264 --prefix=/usr
+grep alsa config.log
+cat << PJ > pjlib/include/pj/config_site.h
+# define PJMEDIA_AUDIO_DEV_HAS_ALSA 1
+# define PJMEDIA_AUDIO_DEV_HAS_PORTAUDIO 0
+PJ
 make dep
 make -j4
 sudo make install # needed for pjsip-apps/src/swig/python below? 
 find pjsip-apps/bin -type f -executable -exec strip {} \;
-ldd pjsip-apps/bin/pjsua-x86_64-unknown-linux-gnu
+ldd pjsip-apps/bin/pjsua-*
 tar cfvj ../pjsip-apps-$VERSION-$ARCH.tar.bz2 pjsip-apps/bin/
 
 # pjsip Python bindings
