@@ -83,7 +83,7 @@ make -j4
 sudo make install # needed for pjsip-apps/src/swig/python below? 
 find pjsip-apps/bin -type f -executable -exec strip {} \;
 ldd pjsip-apps/bin/pjsua-x86_64-unknown-linux-gnu
-tar cfvj ../pjsip-apps-$VERSION.tar.bz2 pjsip-apps/bin/
+tar cfvj ../pjsip-apps-$VERSION-$ARCH.tar.bz2 pjsip-apps/bin/
 
 # pjsip Python bindings
 
@@ -97,6 +97,8 @@ ls -lh build/lib.*/_pjsua.so
 find .
 
 cd -
+
+tar cfvj ../pjsip-python-$VERSION-$ARCH.tar.bz2 pjsip-apps/src/python
 
 # PJSUA2 Python module
 
