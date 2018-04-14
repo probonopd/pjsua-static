@@ -118,7 +118,14 @@ cd -
 tar cfvj ../pjsip-python-$VERSION-$ARCH.tar.bz2 pjsip-apps/src/python
 ls -lh ../pjsip-python-$VERSION-$ARCH.tar.bz2
 
+exit 0
+
+#######
+
 # PJSUA2 Python module
+# fails with
+# make[1]: *** No rule to make target `output/org/pjsip/pjsua2/Error.java', needed by `output/org/pjsip/pjsua2/Error.class'.  Stop.
+# https://travis-ci.org/probonopd/pjsua-static/jobs/366468771#L4247
 
 cd pjsip-apps/src/swig/
 make -j4
