@@ -9,7 +9,7 @@ script:
   - bash -ex .travis.sh
   - FILES=$(sudo find . -name "pjsip-*.tar.bz2")
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - bash upload.sh "$FILE"
+  - bash upload.sh $FILES
   
 branches:
   except:
