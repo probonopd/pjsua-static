@@ -2,7 +2,7 @@
 
 # ARM cross-compilation using qemu based on https://github.com/lwhsu/travis-qemu/blob/master/.travis-ci.sh
 
-CHROOT_DIR=./arm-chroot
+CHROOT_DIR=/tmp/arm-chroot
 MIRROR=http://ftp.us.debian.org/debian
 VERSION=jessie
 CHROOT_ARCH=armhf
