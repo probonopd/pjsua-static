@@ -74,6 +74,8 @@ echo "Environment: $(uname -a)"
 
 sudo apt -y install libasound2-dev libopus-dev python-dev default-jdk swig # swig3.0
 # sudo ln -s /usr/bin/swig3.0 /usr/bin/swig
+ls /usr/bin/python*
+sudo ln -s /usr/bin/python /usr/bin/python3 # We don't want to build for Python 3 but we are getting "make[1]: python3: Command not found" in pjsip-apps/src/swig/python
 
 # Use static libopus
 
@@ -97,6 +99,7 @@ sudo make install # needed for pjsip-apps/src/swig/python below?
 find pjsip-apps/bin -type f -executable -exec strip {} \;
 ldd pjsip-apps/bin/pjsua-*
 tar cfvj ../pjsip-apps-$VERSION-$ARCH.tar.bz2 pjsip-apps/bin/
+ls -lh  ../pjsip-apps-$VERSION-$ARCH.tar.bz2
 
 # pjsip Python bindings
 
@@ -112,6 +115,7 @@ find .
 cd -
 
 tar cfvj ../pjsip-python-$VERSION-$ARCH.tar.bz2 pjsip-apps/src/python
+ls -lh ../pjsip-python-$VERSION-$ARCH.tar.bz2
 
 # PJSUA2 Python module
 
