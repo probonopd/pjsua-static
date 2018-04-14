@@ -99,8 +99,8 @@ make -j4
 sudo make install # needed for pjsip-apps/src/swig/python below? 
 find pjsip-apps/bin -type f -executable -exec strip {} \;
 ldd pjsip-apps/bin/pjsua-*
-tar cfvj ../pjsip-apps-$VERSION-$ARCH.tar.bz2 pjsip-apps/bin/
-ls -lh  ../pjsip-apps-$VERSION-$ARCH.tar.bz2
+sudo tar cfvj /pjsip-apps-$VERSION-$ARCH.tar.bz2 pjsip-apps/bin/
+ls -lh  /pjsip-apps-$VERSION-$ARCH.tar.bz2
 
 # pjsip Python bindings
 
@@ -115,12 +115,14 @@ find .
 
 cd -
 
-tar cfvj ../pjsip-python-$VERSION-$ARCH.tar.bz2 pjsip-apps/src/python
-ls -lh ../pjsip-python-$VERSION-$ARCH.tar.bz2
+sudo tar cfvj /pjsip-python-$VERSION-$ARCH.tar.bz2 pjsip-apps/src/python
+ls -lh /pjsip-python-$VERSION-$ARCH.tar.bz2
 
 wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
 curl --upload-file ../pjsip-python-$VERSION-$ARCH.tar.bz2 https://transfer.sh/
-  
+
+sudo chmod a+rx / ; sudo chmod a+rx /*.tar.bz2 # Make the artefacts accessible from the host
+
 exit 0
 
 #######
