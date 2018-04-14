@@ -127,6 +127,9 @@ exit 0
 # make[1]: *** No rule to make target `output/org/pjsip/pjsua2/Error.java', needed by `output/org/pjsip/pjsua2/Error.class'.  Stop.
 # https://travis-ci.org/probonopd/pjsua-static/jobs/366468771#L4247
 
+# Also, Travis CI kills the ARM build before we are even getting here because
+# it exceeds the allowed time. Can we speed up the ARM build by using a readymade Armbian image?
+
 cd pjsip-apps/src/swig/
 make -j4
 sudo make install
